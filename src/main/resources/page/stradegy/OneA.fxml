@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.0" prefWidth="172.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="58.0" layoutY="10.0" text="出价时间" />
+      <Label layoutX="12.0" layoutY="31.0" text="11：" />
+      <TextField layoutX="40.0" layoutY="27.0" prefHeight="23.0" prefWidth="35.0" text="29" />
+      <TextField layoutX="92.0" layoutY="28.0" prefHeight="23.0" prefWidth="35.0" text="45" />
+      <Label layoutX="77.0" layoutY="28.0" text="：" />
+      <Label layoutX="75.0" layoutY="56.0" text="加" />
+      <TextField layoutX="39.0" layoutY="76.0" prefHeight="23.0" prefWidth="91.0" text="1000" />
+      <Button layoutX="136.0" layoutY="62.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="27.0" text="+" />
+      <Button layoutX="136.0" layoutY="87.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="27.0" text="-" />
+   </children>
+</AnchorPane>
