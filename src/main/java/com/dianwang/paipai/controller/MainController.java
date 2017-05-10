@@ -1,11 +1,13 @@
 package com.dianwang.paipai.controller;
 
-import chrriis.dj.nativeswing.swtimpl.NativeInterface;
-import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
 import com.dianwang.paipai.Main;
 import com.dianwang.paipai.constant.StradegyConstants;
 import com.dianwang.paipai.model.StradegyItem;
-import com.teamdev.jexplorer.Browser;
+import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.BrowserPreferences;
+import com.teamdev.jxbrowser.chromium.events.FinishLoadingEvent;
+import com.teamdev.jxbrowser.chromium.events.LoadAdapter;
+import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
 import javafx.application.HostServices;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
@@ -20,7 +22,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -39,7 +40,7 @@ import static java.util.Objects.nonNull;
 /**
  * Created by leo on 2017/4/23.
  */
-public class MainController extends BorderPane {
+public class MainController extends AnchorPane {
 
     private Main application;
 
@@ -53,10 +54,8 @@ public class MainController extends BorderPane {
     private FlowPane stradegyContent;
 
     @FXML
-    private SwingNode swingPanel;
+   private BorderPane webview;
 
-    @FXML
-    private WebView web;
 
     private HostServices hostservices;
 
@@ -114,7 +113,12 @@ public class MainController extends BorderPane {
         });
         this.ddlStradegy.getItems().addAll(stradegys);
         loadStradgeyContent("/page/stradegy/OneA.fxml");
+        showWebContent();
         //init web view
+
+//        BrowserView view = new BrowserView(browser);
+//        webview.getChildren().add(view);
+
 //        WebEngine webEngine =   web.getEngine();
 //        webEngine.load("http://moni.51hupai.org/");
 
@@ -136,6 +140,26 @@ public class MainController extends BorderPane {
 
     }
 
+    public void showWebContent() {
+        System.setProperty("teamdev.license.info", "true");
+        BrowserPreferences.setUserAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136");
+        Browser browser = new Browser();
+        BrowserView view = new BrowserView(browser);
+        this.webview.setCenter(view);
+        // Modify zoom level every time when main frame is loaded.
+        browser.addLoadListener(new LoadAdapter() {
+            @Override
+            public void onFinishLoadingFrame(FinishLoadingEvent event) {
+                if (event.isMainFrame()) {
+                    event.getBrowser().setZoomLevel(0.1);
+                }
+            }
+        });
+//        browser.loadURL("https://test.alltobid.com/");
+//        browser.loadURL("http://moni.51hupai.org/");
+        browser.loadURL("http://ini.sh-pp.com/flash.html");
+    }
+
     private void loadStradgeyContent(String fxml) throws IOException {
         Node ddl = stradegyContent.getChildren().get(0);
         stradegyContent.getChildren().clear();
@@ -144,26 +168,26 @@ public class MainController extends BorderPane {
         stradegyContent.requestFocus();
     }
 
-    public static JComponent createContent() {
-        JPanel contentPane = new JPanel(new BorderLayout());
-        JPanel webBrowserPanel = new JPanel(new BorderLayout());
-        webBrowserPanel.setBorder(BorderFactory.createTitledBorder("Native Web Browser component"));
-        final JWebBrowser webBrowser = new JWebBrowser();
-        webBrowser.navigate("http://moni.51hupai.org/");
-        webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
-        contentPane.add(webBrowserPanel, BorderLayout.CENTER);
-        // Create an additional bar allowing to show/hide the menu bar of the web browser.
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
-        JCheckBox menuBarCheckBox = new JCheckBox("Menu Bar", webBrowser.isMenuBarVisible());
-        menuBarCheckBox.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                webBrowser.setMenuBarVisible(e.getStateChange() == ItemEvent.SELECTED);
-            }
-        });
-        buttonPanel.add(menuBarCheckBox);
-        contentPane.add(buttonPanel, BorderLayout.SOUTH);
-        return contentPane;
-    }
+//    public static JComponent createContent() {
+//        JPanel contentPane = new JPanel(new BorderLayout());
+//        JPanel webBrowserPanel = new JPanel(new BorderLayout());
+//        webBrowserPanel.setBorder(BorderFactory.createTitledBorder("Native Web Browser component"));
+//        final JWebBrowser webBrowser = new JWebBrowser();
+//        webBrowser.navigate("http://moni.51hupai.org/");
+//        webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
+//        contentPane.add(webBrowserPanel, BorderLayout.CENTER);
+//        // Create an additional bar allowing to show/hide the menu bar of the web browser.
+//        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
+//        JCheckBox menuBarCheckBox = new JCheckBox("Menu Bar", webBrowser.isMenuBarVisible());
+//        menuBarCheckBox.addItemListener(new ItemListener() {
+//            public void itemStateChanged(ItemEvent e) {
+//                webBrowser.setMenuBarVisible(e.getStateChange() == ItemEvent.SELECTED);
+//            }
+//        });
+//        buttonPanel.add(menuBarCheckBox);
+//        contentPane.add(buttonPanel, BorderLayout.SOUTH);
+//        return contentPane;
+//    }
 
     public void setApp(Main application){
         this.application = application;
@@ -240,4 +264,5 @@ public class MainController extends BorderPane {
             System.out.println("Unable to open '{}', please copy and paste the url to your browser.");
         }
     }
+
 }

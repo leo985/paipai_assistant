@@ -31,10 +31,8 @@
  */
 package com.dianwang.paipai;
 
-import chrriis.dj.nativeswing.swtimpl.NativeInterface;
+//import chrriis.dj.nativeswing.swtimpl.NativeInterface;
 import com.dianwang.paipai.controller.MainController;
-import com.dianwang.paipai.controller.Test1Controller;
-import com.dianwang.paipai.controller.TestController;
 import com.dianwang.paipai.model.User;
 import com.dianwang.paipai.security.Authenticator;
 import javafx.application.Application;
@@ -62,12 +60,13 @@ public class Main extends Application {
     private User loggedUser;
     private final double MINIMUM_WINDOW_WIDTH = 390.0;
     private final double MINIMUM_WINDOW_HEIGHT = 500.0;
+    private MainController mainInfo;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        NativeInterface.open();
+//        NativeInterface.open();
         Application.launch(Main.class, (String[]) null);
     }
 
@@ -86,6 +85,8 @@ public class Main extends Application {
 //            gotoLogin();
             gotoMain();
             primaryStage.show();
+//            mainInfo.showWebContent();
+
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,21 +127,14 @@ public class Main extends Application {
 
     private void gotoMain() {
         try {
-            MainController mainInfo = (MainController) replaceSceneContent("/page/main.fxml");
+            mainInfo = (MainController) replaceSceneContent("/page/main.fxml");
             mainInfo.setApp(this);
-            mainInfo.setHostservices(getHostServices());
+
         } catch (Exception e) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
-    private void gotoTest() {
-        try {
-            Test1Controller testController = (Test1Controller)replaceTest("/page/test1.fxml");
-            testController.setApp(this);
-        }catch (Exception e) {
-        }
-    }
 
     private void gotoLogin() {
         try {
