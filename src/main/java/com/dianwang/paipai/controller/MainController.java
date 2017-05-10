@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -158,6 +159,14 @@ public class MainController extends AnchorPane {
 //        browser.loadURL("https://test.alltobid.com/");
 //        browser.loadURL("http://moni.51hupai.org/");
         browser.loadURL("http://ini.sh-pp.com/flash.html");
+        Bounds bounds = webview.localToScene(webview.getBoundsInLocal());
+        System.out.println(bounds.getMinX());
+        System.out.println(bounds.getMaxX());
+        System.out.println(bounds.getMinY());
+        System.out.println(bounds.getMaxY());
+
+
+
     }
 
     private void loadStradgeyContent(String fxml) throws IOException {

@@ -15,7 +15,7 @@
 
 <AnchorPane id="Profile" focusTraversable="false" minHeight="768" minWidth="1366.0" prefHeight="768.0" prefWidth="1366.0" styleClass="background" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dianwang.paipai.controller.MainController">
    <children>
-      <FlowPane prefHeight="708.0" prefWidth="220.0" maxHeight="768">
+      <FlowPane maxHeight="768" prefHeight="708.0" prefWidth="220.0">
          <children>
             <Label alignment="CENTER" contentDisplay="TOP" prefHeight="19.0" prefWidth="96.0" text="当前最低价">
                <opaqueInsets>
@@ -29,45 +29,45 @@
             </Label>
             <Label alignment="CENTER" prefHeight="21.0" prefWidth="94.0" text="88635" textFill="#e40a0a" />
             <Label alignment="CENTER" prefHeight="15.0" prefWidth="71.0" text="89907" textFill="#eb0b0b" />
-            <TitledPane prefHeight="120.0" prefWidth="220.0" text="辅助功能">
+            <TitledPane prefHeight="80.0" prefWidth="220.0" text="辅助功能">
                <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="80.0" prefWidth="218.0">
                      <children>
-                        <RadioButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="本地时间" />
-                        <RadioButton layoutX="107.0" layoutY="14.0" mnemonicParsing="false" text="国拍时间" />
-                        <CheckBox layoutX="31.0" layoutY="40.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="151.0" text="验证码放大镜" />
-                        <CheckBox layoutX="31.0" layoutY="66.0" mnemonicParsing="false" text="验证码预览" />
+                        <RadioButton layoutX="13.0" layoutY="9.0" mnemonicParsing="false" text="本地时间" />
+                        <RadioButton layoutX="119.0" layoutY="9.0" mnemonicParsing="false" text="国拍时间" />
+                        <CheckBox layoutX="13.0" layoutY="34.0" mnemonicParsing="false" text="验证码放大镜" />
+                        <CheckBox layoutX="119.0" layoutY="34.0" mnemonicParsing="false" text="验证码预览" />
                      </children>
                   </AnchorPane>
                </content></TitledPane>
-            <TitledPane prefHeight="205.0" prefWidth="220.0" text="策略选择">
+            <TitledPane prefHeight="170.0" prefWidth="220.0" text="策略选择">
                <content>
                   <FlowPane fx:id="stradegyContent" prefHeight="164.0" prefWidth="203.0">
                      <children>
-                        <ComboBox fx:id="ddlStradegy" layoutX="8.0" layoutY="3.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#onStradegyChanged" prefHeight="23.0" prefWidth="175.0" promptText="一次伏击A（1次自动出价）&#10;" />
+                        <ComboBox fx:id="ddlStradegy" layoutX="8.0" layoutY="1.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#onStradegyChanged" prefHeight="23.0" prefWidth="175.0" promptText="一次伏击A（1次自动出价）&#10;" />
                      </children>
                   </FlowPane>
                </content>
             </TitledPane>
-            <TitledPane animated="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="220.0" text="智能提交">
+            <TitledPane animated="false" prefHeight="170.0" prefWidth="220.0" text="智能提交">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="196.0" prefWidth="233.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="218.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="23.0" text="第二次出价提前" />
-                        <ComboBox layoutX="106.0" layoutY="19.0" prefHeight="23.0" prefWidth="56.0" />
-                        <Label layoutX="174.0" layoutY="23.0" text="元" />
-                        <Label layoutX="14.0" layoutY="64.0" text="并延迟" />
-                        <TextField layoutX="56.0" layoutY="60.0" prefHeight="23.0" prefWidth="53.0" />
-                        <Button layoutX="134.0" layoutY="49.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="11.0" text="+" />
-                        <Button layoutX="134.0" layoutY="73.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="26.0" text="-" />
-                        <Label layoutX="116.0" layoutY="64.0" text="秒" />
-                        <Label layoutX="167.0" layoutY="62.0" text="提交" />
-                        <CheckBox layoutX="11.0" layoutY="97.0" mnemonicParsing="false" text="使用强制提交于：" />
-                        <TextField layoutX="11.0" layoutY="118.0" prefHeight="23.0" prefWidth="31.0" text="11" />
-                        <Label layoutX="39.0" layoutY="119.0" text="：" />
-                        <TextField layoutX="50.0" layoutY="118.0" prefHeight="23.0" prefWidth="31.0" text="29" />
-                        <TextField layoutX="83.0" layoutY="118.0" prefHeight="23.0" prefWidth="38.0" text="55.5" />
-                        <Label layoutX="128.0" layoutY="122.0" text="秒" />
+                        <Label layoutX="14.0" layoutY="9.0" text="第二次出价提前" />
+                        <ComboBox layoutX="106.0" layoutY="5.0" prefHeight="23.0" prefWidth="56.0" />
+                        <Label layoutX="174.0" layoutY="8.0" text="元" />
+                        <Label layoutX="14.0" layoutY="51.0" text="并延迟" />
+                        <TextField layoutX="56.0" layoutY="47.0" prefHeight="23.0" prefWidth="53.0" />
+                        <Button layoutX="134.0" layoutY="33.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="11.0" text="+" />
+                        <Button layoutX="134.0" layoutY="60.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="26.0" text="-" />
+                        <Label layoutX="116.0" layoutY="51.0" text="秒" />
+                        <Label layoutX="167.0" layoutY="43.0" text="提交" />
+                        <CheckBox layoutX="11.0" layoutY="86.0" mnemonicParsing="false" text="使用强制提交于：" />
+                        <TextField layoutX="11.0" layoutY="108.0" prefHeight="23.0" prefWidth="31.0" text="11" />
+                        <Label layoutX="39.0" layoutY="111.0" text="：" />
+                        <TextField layoutX="50.0" layoutY="108.0" prefHeight="23.0" prefWidth="31.0" text="29" />
+                        <TextField layoutX="86.0" layoutY="108.0" prefHeight="23.0" prefWidth="38.0" text="55.5" />
+                        <Label layoutX="129.0" layoutY="112.0" text="秒" />
                      </children>
                   </AnchorPane>
               </content>
