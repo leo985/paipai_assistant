@@ -10,6 +10,7 @@ import com.teamdev.jxbrowser.chromium.events.FinishLoadingEvent;
 import com.teamdev.jxbrowser.chromium.events.LoadAdapter;
 import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
 import javafx.application.HostServices;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +40,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
 import static java.util.Objects.nonNull;
 
@@ -120,13 +122,12 @@ public class MainController extends AnchorPane {
         loadStradgeyContent("/page/stradegy/OneA.fxml");
         showWebContent();
         new java.util.Timer().schedule(
-                new java.util.TimerTask() {
+                new TimerTask() {
                     @Override
                     public void run() {
                         try {
                             clickHitPrice();
                             showDownTIme();
-
                         } catch (AWTException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -137,17 +138,11 @@ public class MainController extends AnchorPane {
                 5000
         );
 
-
-
         //init web view
-
 //        BrowserView view = new BrowserView(browser);
 //        webview.getChildren().add(view);
-
 //        WebEngine webEngine =   web.getEngine();
 //        webEngine.load("http://moni.51hupai.org/");
-
-
 //
 //        System.setProperty("teamdev.license.info", "true");
 //        Browser browser = new Browser();
@@ -162,22 +157,29 @@ public class MainController extends AnchorPane {
 //            }
 //        });
 //        NativeInterface.runEventPump();
-
     }
 
     private void showDownTIme() throws IOException {
-        Stage stage = new Stage();
-        Node node =  loadFxml("/page/DownTime.fxml");
-        Scene scene = new Scene((FlowPane)node);
-        stage.setScene(scene);
-        stage.show();
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            Node node = null;
+            try {
+                node = loadFxml("/page/DownTime.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene((FlowPane)node);
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            stage.show();
+        });
 
     }
 
     private void clickHitPrice() throws AWTException {
         Robot robot = new Robot();
         robot.setSourcePath(MainController.class);
-        List<CoordBean> list = robot.imageSearch(0, 0, robot.screenWidth, robot.screenHeight, "hitprice.png", Robot.SIM_ACCURATE);
+        List<CoordBean> list = robot.imageSearch(0, 0, robot.screenWidth, robot.screenHeight, "hitprice1920.png", Robot.SIM_ACCURATE);
         System.out.print("imageSearchByScreen搜索到了" + list.size() + "个图片");
 
         for (int i = 0; i < list.size(); i++) {
@@ -201,7 +203,7 @@ public class MainController extends AnchorPane {
             @Override
             public void onFinishLoadingFrame(FinishLoadingEvent event) {
                 if (event.isMainFrame()) {
-                    event.getBrowser().setZoomLevel(0.1);
+                    event.getBrowser().setZoomLevel(0.5);
                 }
             }
         });
