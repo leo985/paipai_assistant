@@ -3,6 +3,7 @@ package com.dianwang.paipai.controller;
 import com.dianwang.paipai.Main;
 import com.dianwang.paipai.constant.StradegyConstants;
 import com.dianwang.paipai.model.StradegyItem;
+import com.dianwang.paipai.robot.support.CoordBean;
 import com.teamdev.jxbrowser.chromium.Browser;
 import com.teamdev.jxbrowser.chromium.BrowserPreferences;
 import com.teamdev.jxbrowser.chromium.events.FinishLoadingEvent;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -24,8 +26,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import com.dianwang.paipai.robot.Robot;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,7 +81,7 @@ public class MainController extends AnchorPane {
 
     @FXML
         // This method is called by the FXMLLoader when initialization is complete
-    void initialize() throws IOException {
+    void initialize() throws IOException, InterruptedException, AWTException {
 
         List<StradegyItem> stradegys = loadStradegies();
         if(stradegys.size() > 0) {
@@ -115,6 +119,26 @@ public class MainController extends AnchorPane {
         this.ddlStradegy.getItems().addAll(stradegys);
         loadStradgeyContent("/page/stradegy/OneA.fxml");
         showWebContent();
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        try {
+                            clickHitPrice();
+                            showDownTIme();
+
+                        } catch (AWTException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                5000
+        );
+
+
+
         //init web view
 
 //        BrowserView view = new BrowserView(browser);
@@ -141,6 +165,31 @@ public class MainController extends AnchorPane {
 
     }
 
+    private void showDownTIme() throws IOException {
+        Stage stage = new Stage();
+        Node node =  loadFxml("/page/DownTime.fxml");
+        Scene scene = new Scene((FlowPane)node);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    private void clickHitPrice() throws AWTException {
+        Robot robot = new Robot();
+        robot.setSourcePath(MainController.class);
+        List<CoordBean> list = robot.imageSearch(0, 0, robot.screenWidth, robot.screenHeight, "hitprice.png", Robot.SIM_ACCURATE);
+        System.out.print("imageSearchByScreen搜索到了" + list.size() + "个图片");
+
+        for (int i = 0; i < list.size(); i++) {
+            CoordBean coord = list.get(i);
+            System.out.print("第" + (i + 1) + "个图片坐标：" + coord.getX() + "," + coord.getY());
+        }
+        if(list.size() > 0) {
+            CoordBean bean = list.get(0);
+            robot.mouseLeftClick(bean.getX()+10,bean.getY()+10);
+        }
+    }
+
     public void showWebContent() {
         System.setProperty("teamdev.license.info", "true");
         BrowserPreferences.setUserAgent("Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136");
@@ -164,6 +213,7 @@ public class MainController extends AnchorPane {
         System.out.println(bounds.getMaxX());
         System.out.println(bounds.getMinY());
         System.out.println(bounds.getMaxY());
+        webview.requestFocus();
 
 
 
@@ -207,9 +257,9 @@ public class MainController extends AnchorPane {
         InputStream in = MainController.class.getResourceAsStream(path);
         loader.setBuilderFactory(new JavaFXBuilderFactory());
         loader.setLocation(Main.class.getResource(path));
-        AnchorPane page;
+        Node page;
         try {
-            page = (AnchorPane) loader.load(in);
+            page =  loader.load(in);
         } finally {
             in.close();
         }

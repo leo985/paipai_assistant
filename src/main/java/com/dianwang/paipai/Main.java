@@ -83,6 +83,7 @@ public class Main extends Application {
 //            gotoProfile();
 //            gotoTest();
 //            gotoLogin();
+            stage.setAlwaysOnTop(true);
             gotoMain();
             primaryStage.show();
 //            mainInfo.showWebContent();
