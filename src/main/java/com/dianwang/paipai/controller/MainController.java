@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Bounds;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.web.WebView;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -63,6 +65,9 @@ public class MainController extends AnchorPane {
     @FXML
    private BorderPane webview;
 
+    @FXML
+    private FlowPane leftview;
+
 
     private HostServices hostservices;
 
@@ -84,6 +89,11 @@ public class MainController extends AnchorPane {
     @FXML
         // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws IOException, InterruptedException, AWTException {
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        leftview.setPrefHeight(primaryScreenBounds.getHeight());
+        ((BorderPane)((AnchorPane)leftview.getParent()).getChildren().get(1)).setPrefHeight(primaryScreenBounds.getHeight());
+        ((BorderPane)((AnchorPane)leftview.getParent()).getChildren().get(1)).setPrefWidth(primaryScreenBounds.getWidth() - leftview.getPrefWidth());
 
         List<StradegyItem> stradegys = loadStradegies();
         if(stradegys.size() > 0) {
@@ -179,7 +189,7 @@ public class MainController extends AnchorPane {
     private void clickHitPrice() throws AWTException {
         Robot robot = new Robot();
         robot.setSourcePath(MainController.class);
-        List<CoordBean> list = robot.imageSearch(0, 0, robot.screenWidth, robot.screenHeight, "hitprice1920.png", Robot.SIM_ACCURATE);
+        List<CoordBean> list = robot.imageSearch(0, 0, robot.screenWidth, robot.screenHeight, "hitprice.png", Robot.SIM_ACCURATE);
         System.out.print("imageSearchByScreen搜索到了" + list.size() + "个图片");
 
         for (int i = 0; i < list.size(); i++) {
@@ -203,7 +213,7 @@ public class MainController extends AnchorPane {
             @Override
             public void onFinishLoadingFrame(FinishLoadingEvent event) {
                 if (event.isMainFrame()) {
-                    event.getBrowser().setZoomLevel(0.5);
+                    event.getBrowser().setZoomLevel(1);
                 }
             }
         });

@@ -15,7 +15,7 @@
 
 <AnchorPane id="Profile" focusTraversable="false" minHeight="768" minWidth="1366.0" prefHeight="768.0" prefWidth="1366.0" styleClass="background" stylesheets="@../css/Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dianwang.paipai.controller.MainController">
    <children>
-      <FlowPane maxHeight="768" prefHeight="708.0" prefWidth="220.0">
+      <FlowPane fx:id="leftview" maxHeight="768" prefHeight="708.0" prefWidth="220.0">
          <children>
             <Label alignment="CENTER" contentDisplay="TOP" prefHeight="19.0" prefWidth="96.0" text="当前最低价">
                <opaqueInsets>

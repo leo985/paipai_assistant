@@ -38,12 +38,14 @@ import com.dianwang.paipai.security.Authenticator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -80,6 +82,11 @@ public class Main extends Application {
             stage.getIcons().add(new Image("/image/title.jpg"));
             stage.setFullScreen(false);
             stage.setResizable(true);
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(primaryScreenBounds.getMinX());
+            stage.setY(primaryScreenBounds.getMinY());
+            stage.setWidth(primaryScreenBounds.getWidth());
+            stage.setHeight(primaryScreenBounds.getHeight());
 //            gotoProfile();
 //            gotoTest();
 //            gotoLogin();
@@ -197,12 +204,12 @@ public class Main extends Application {
         
         // Store the stage width and height in case the user has resized the window
         double stageWidth = stage.getWidth();
-        if (!Double.isNaN(stageWidth)) {
+        if (!Double.isNaN(stageWidth) && stage.getScene() != null) {
             stageWidth -= (stage.getWidth() - stage.getScene().getWidth());
         }
         
         double stageHeight = stage.getHeight();
-        if (!Double.isNaN(stageHeight)) {
+        if (!Double.isNaN(stageHeight) && stage.getScene() != null) {
             stageHeight -= (stage.getHeight() - stage.getScene().getHeight());
         }
         
