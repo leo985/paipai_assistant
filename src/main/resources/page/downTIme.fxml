@@ -41,8 +41,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<FlowPane id="AnchorPane" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="179.0" prefWidth="608.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dianwang.paipai.controller.DownTimeController">
+<FlowPane id="AnchorPane" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="680.0" style="-fx-background-color:#000000" styleClass="background" stylesheets="@../css/down.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dianwang.paipai.controller.DownTimeController">
    <children>
-      <TextArea fx:id="hotmessage" prefHeight="178.0" prefWidth="611.0" />
+      <TextArea fx:id="hotmessage" prefHeight="241.0" prefWidth="680.0" style="-fx-background-color: #000000;" styleClass="background" />
    </children>
 </FlowPane>

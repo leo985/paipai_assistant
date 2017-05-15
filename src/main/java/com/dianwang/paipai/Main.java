@@ -36,6 +36,8 @@ import com.dianwang.paipai.controller.MainController;
 import com.dianwang.paipai.model.User;
 import com.dianwang.paipai.security.Authenticator;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Rectangle2D;
@@ -47,6 +49,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 import java.io.InputStream;
@@ -90,8 +93,16 @@ public class Main extends Application {
 //            gotoProfile();
 //            gotoTest();
 //            gotoLogin();
-            stage.setAlwaysOnTop(true);
+//            stage.setAlwaysOnTop(true);
             gotoMain();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    Platform.exit();
+                    primaryStage.close();
+                    System.exit(0);
+                }
+            });
             primaryStage.show();
 //            mainInfo.showWebContent();
 

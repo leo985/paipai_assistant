@@ -27,9 +27,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import com.dianwang.paipai.robot.Robot;
@@ -92,7 +95,7 @@ public class MainController extends AnchorPane {
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         leftview.setPrefHeight(primaryScreenBounds.getHeight());
-        ((BorderPane)((AnchorPane)leftview.getParent()).getChildren().get(1)).setPrefHeight(primaryScreenBounds.getHeight());
+        ((BorderPane)((AnchorPane)leftview.getParent()).getChildren().get(1)).setPrefHeight(primaryScreenBounds.getHeight() - 40);
         ((BorderPane)((AnchorPane)leftview.getParent()).getChildren().get(1)).setPrefWidth(primaryScreenBounds.getWidth() - leftview.getPrefWidth());
 
         List<StradegyItem> stradegys = loadStradegies();
@@ -178,8 +181,13 @@ public class MainController extends AnchorPane {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Scene scene = new Scene((FlowPane)node);
+            Scene scene = new Scene((FlowPane) node);
+            scene.setFill(Color.BLACK);
             stage.setScene(scene);
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(primScreenBounds.getWidth() - ((TextArea)((FlowPane) node).getChildren().get(0)).getPrefWidth());
+            stage.setY(0);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setAlwaysOnTop(true);
             stage.show();
         });
@@ -189,7 +197,7 @@ public class MainController extends AnchorPane {
     private void clickHitPrice() throws AWTException {
         Robot robot = new Robot();
         robot.setSourcePath(MainController.class);
-        List<CoordBean> list = robot.imageSearch(0, 0, robot.screenWidth, robot.screenHeight, "hitprice.png", Robot.SIM_ACCURATE);
+        List<CoordBean> list = robot.imageSearch(0, 0, robot.screenWidth, robot.screenHeight, "hitprice1366.png", Robot.SIM_ACCURATE);
         System.out.print("imageSearchByScreen搜索到了" + list.size() + "个图片");
 
         for (int i = 0; i < list.size(); i++) {
@@ -213,13 +221,14 @@ public class MainController extends AnchorPane {
             @Override
             public void onFinishLoadingFrame(FinishLoadingEvent event) {
                 if (event.isMainFrame()) {
-                    event.getBrowser().setZoomLevel(1);
+                    event.getBrowser().setZoomLevel(0.1);
+                    event.getBrowser().setZoomEnabled(true);
                 }
             }
         });
 //        browser.loadURL("https://test.alltobid.com/");
-//        browser.loadURL("http://moni.51hupai.org/");
-        browser.loadURL("http://ini.sh-pp.com/flash.html");
+        browser.loadURL("http://moni.51hupai.org/");
+//        browser.loadURL("http://ini.sh-pp.com/flash.html");
         Bounds bounds = webview.localToScene(webview.getBoundsInLocal());
         System.out.println(bounds.getMinX());
         System.out.println(bounds.getMaxX());
