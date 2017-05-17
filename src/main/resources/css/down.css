@@ -33,7 +33,7 @@
 .text-area {
     -fx-font-family: "Microsoft yahei", "微软雅黑", "Tahoma", "Verdana", "Arial", "sans-serif";
     -fx-font-size: 15;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: red;
     -fx-display-caret:true;
 }
 
