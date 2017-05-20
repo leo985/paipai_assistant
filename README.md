@@ -1,6 +1,7 @@
 # paipai_assistant
 this tool is a javafx  project for execising.
-it will include the following content:   
+it will include the following content:  
+
 1:how to use css in javafx  
 2:how to load fxml dynamicially  
 3:how to load web content and run flash in javafx application  
