@@ -1,6 +1,6 @@
 # paipai_assistant
-this tool is a javafx  project for execising.
-it will include the following content:  
+this tool is a javafx  project for execising and help people to offer a price quickly at auction.
+it will include the following content:
 
 1:how to use css in javafx  
 2:how to load fxml dynamicially  
